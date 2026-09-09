@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRON PULSE - NextGen Fitness Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-main: #0a0f1d;
+      --bg-card: rgba(18, 26, 47, 0.7);
+      --neon-cyan: #00f2fe;
+      --neon-blue: #4facfe;
+      --neon-pink: #ff007f;
+      --text-white: #ffffff;
+      --text-gray: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+    body { background-color: var(--bg-main); color: var(--text-white); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 20px 8%;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(10, 15, 29, 0.8); backdrop-filter: blur(15px);
+      z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .logo { font-size: 28px; font-weight: 900; letter-spacing: 2px; color: var(--text-white); }
+    .logo span { color: var(--neon-cyan); }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--text-gray); text-decoration: none; font-weight: 600; transition: 0.3s; }
+    .nav-links a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+
+    #announcement-bar {
+      margin-top: 80px; background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+      padding: 10px; text-align: center; font-weight: 700; font-size: 14px; letter-spacing: 1px;
+    }
+
+    .hero {
+      min-height: 90vh; padding: 60px 8%; display: flex; align-items: center;
+      justify-content: space-between; gap: 50px; flex-wrap: wrap;
+    }
+    .hero-text { flex: 1; min-width: 320px; }
+    .hero-text h1 { font-size: 56px; font-weight: 900; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
+    .hero-text h1 span { background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-text p { color: var(--text-gray); font-size: 18px; margin-bottom: 30px; line-height: 1.6; }
+    
+    .btn-glow {
+      padding: 16px 36px; font-size: 16px; font-weight: 800; border: none; border-radius: 50px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue)); color: #000;
+      cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.4); transition: 0.4s; text-decoration: none; display: inline-block;
+    }
+    .btn-glow:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(0, 242, 254, 0.8); }
+
+    .hero-image-box { flex: 1; min-width: 320px; position: relative; text-align: center; }
+    .hero-image-box img {
+      width: 100%; max-width: 550px; height: 420px; object-fit: cover; border-radius: 20px;
+      border: 2px solid rgba(0, 242, 254, 0.3); box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .section-title { text-align: center; font-size: 40px; font-weight: 900; margin: 80px 0 40px; }
+    .section-title span { color: var(--neon-cyan); }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 0 8%; }
+    .card {
+      background: var(--bg-card); border: 1px solid rgba(255, 255, 255, 0.08); padding: 35px;
+      border-radius: 20px; backdrop-filter: blur(10px); transition: 0.4s;
+    }
+    .card:hover { border-color: var(--neon-cyan); transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15); }
+    .card i { font-size: 40px; color: var(--neon-cyan); margin-bottom: 20px; }
+    .card h3 { font-size: 22px; margin-bottom: 12px; }
+    .card p { color: var(--text-gray); font-size: 15px; line-height: 1.5; }
+
+    .bmi-box {
+      background: var(--bg-card); border: 1px solid rgba(0, 242, 254, 0.2);
+      max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 24px; text-align: center;
+    }
+    .bmi-inputs { display: flex; gap: 20px; margin: 20px 0; justify-content: center; }
+    .bmi-inputs input {
+      padding: 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #060913; color: white; font-size: 16px; width: 45%; text-align: center;
+    }
+
+    .price-card { text-align: center; position: relative; }
+    .price-card.popular { border: 2px solid var(--neon-cyan); box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); }
+    .price { font-size: 44px; font-weight: 900; margin: 20px 0; color: var(--neon-cyan); }
+
+    footer { text-align: center; padding: 40px; color: var(--text-gray); border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 100px; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo"><i class="fa-solid fa-bolt"></i> <span id="nav-gym-name">IRON PULSE</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#bmi">BMI Calculator</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="/admin.html" style="color: var(--neon-pink);"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+    </ul>
+  </nav>
+
+  <div id="announcement-bar">Loading announcements...</div>
+
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1 id="hero-title">TRANSFORM YOUR <span>BODY</span></h1>
+      <p id="hero-desc">State-of-the-art equipment, elite personal trainers, and high-intensity energy.</p>
+      <a href="#pricing" class="btn-glow">Join Now</a>
+    </div>
+    <div class="hero-image-box">
+      <img id="hero-img" src="" alt="Gym Main Photo">
+    </div>
+  </section>
+
+  <h2 class="section-title" id="services">OUR <span>SERVICES</span></h2>
+  <div class="grid-3">
+    <div class="card">
+      <i class="fa-solid fa-dumbbell"></i>
+      <h3>Heavy Weightlifting</h3>
+      <p>Custom racks, Olympic bars, and dumbbells up to 100kg for maximum gains.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-heart-pulse"></i>
+      <h3>Cardio Zone</h3>
+      <p>High-end treadmills, elliptical machines, and rowing units with heart tracking.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-user-ninja"></i>
+      <h3>Personal Training</h3>
+      <p>Work 1-on-1 with certified trainers to reach your physique targets fast.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title" id="bmi">CALCULATE YOUR <span>BMI</span></h2>
+  <div class="bmi-box">
+    <p style="color: var(--text-gray);">Calculate your Body Mass Index quickly to plan your workout.</p>
+    <div class="bmi-inputs">
+      <input type="number" id="height" placeholder="Height (cm)">
+      <input type="number" id="weight" placeholder="Weight (kg)">
+    </div>
+    <button class="btn-glow" onclick="calcBMI()">Calculate</button>
+    <h3 id="bmi-result" style="margin-top: 20px; color: var(--neon-cyan);"></h3>
+  </div>
+
+  <h2 class="section-title" id="pricing">MEMBERSHIP <span>PLANS</span></h2>
+  <div class="grid-3">
+    <div class="card price-card">
+      <h3>Basic Pass</h3>
+      <div class="price">Rs. 3,500<span>/mo</span></div>
+      <p>Access to Gym Floor & Cardio Equipment</p>
+    </div>
+    <div class="card price-card popular">
+      <h3>Pro VIP Pass</h3>
+      <div class="price">Rs. 6,000<span>/mo</span></div>
+      <p>Full Access + Personal Trainer & Nutrition Plan</p>
+    </div>
+    <div class="card price-card">
+      <h3>Yearly Beast</h3>
+      <div class="price">Rs. 45,000<span>/yr</span></div>
+      <p>Unlimited 24/7 Access + Locker & Sauna</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 IRON PULSE GYM. All Rights Reserved. Built with Node.js & Cloudinary.</p>
+  </footer>
+
+  <script>
+    async function loadContent() {
+      try {
+        const res = await fetch('/api/content');
+        const { data } = await res.json();
+
+        document.getElementById('nav-gym-name').innerText = data.gymName;
+        document.getElementById('hero-title').innerHTML = data.heroTagline;
+        document.getElementById('hero-desc').innerText = data.heroSubtext;
+        document.getElementById('announcement-bar').innerText = data.announcement;
+        document.getElementById('hero-img').src = data.heroImage;
+      } catch (err) {
+        console.log('Error loading dynamic content:', err);
+      }
+    }
+
+    function calcBMI() {
+      const h = parseFloat(document.getElementById('height').value) / 100;
+      const w = parseFloat(document.getElementById('weight').value);
+      if (h > 0 && w > 0) {
+        const bmi = (w / (h * h)).toFixed(1);
+        let msg = `Your BMI is ${bmi}`;
+        if(bmi < 18.5) msg += " (Underweight)";
+        else if(bmi < 24.9) msg += " (Normal)";
+        else msg += " (Overweight)";
+        document.getElementById('bmi-result').innerText = msg;
+      }
+    }
+
+    loadContent();
+  </script>
+</body>
+</html>
